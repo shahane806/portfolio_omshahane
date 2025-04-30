@@ -22,7 +22,7 @@ const Home = () => {
           className="z-10 mb-6"
         >
           <img
-            src="/profile.jpg" // <- Replace with your image path
+            src="https://avatars.githubusercontent.com/u/71377782?v=4" // <- Replace with your image path
             alt="John Doe"
             className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-lg object-cover"
           />
