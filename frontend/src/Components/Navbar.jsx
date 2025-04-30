@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -15,6 +15,20 @@ export default function Navbar({
   className = '',
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);  // For detecting scroll position
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Animation for menu items and buttons
   const menuItemVariants = {
@@ -28,7 +42,9 @@ export default function Navbar({
   };
 
   return (
-    <nav className={`bg-gray-800 text-white ${className}`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-in-out ${isScrolled ? 'bg-gradient-to-r from-sky-600 to-indigo-700' : 'bg-gray-800'} text-white ${className}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}

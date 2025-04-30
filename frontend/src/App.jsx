@@ -1,17 +1,64 @@
-import './App.css'
-import Navbar from './Components/Navbar'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './Pages/Home'
-import AboutUs from './Pages/AboutUs'
-import Blog from './Pages/Blog'
-import ContactUs from './Pages/ContactUs'
-import Projects from './Pages/Projects'
-import Footer from './Components/Footer'
+import './App.css';
+import Navbar from './Components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home';
+import AboutUs from './Pages/AboutUs';
+import Blog from './Pages/Blog';
+import ContactUs from './Pages/ContactUs';
+import Projects from './Pages/Projects';
+import Footer from './Components/Footer';
+import { useEffect, useState } from 'react';
+
+// Cursor light effect
+function CursorLight() {
+  useEffect(() => {
+    const light = document.createElement('div');
+    light.id = 'cursor-light';
+    light.className =
+      'fixed pointer-events-none w-52 h-52 rounded-full z-[9999] mix-blend-screen transition-transform duration-75 bg-gradient-radial from-sky-400/30 via-indigo-400/20 to-transparent';
+    document.body.appendChild(light);
+
+    const moveLight = (e) => {
+      light.style.transform = `translate(${e.pageX - 100}px, ${e.pageY - 100}px)`; // Centering
+    };
+
+    document.addEventListener('mousemove', moveLight);
+    return () => {
+      document.removeEventListener('mousemove', moveLight);
+      document.body.removeChild(light);
+    };
+  }, []);
+
+  return null;
+}
 
 function App() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Show the button when the user scrolls down 300px
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Scroll to top when the button is clicked
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <>
+      <CursorLight />
 
       <Router>
         <Navbar
@@ -24,38 +71,39 @@ function App() {
           ]}
           cta={{ label: 'Hire Me', href: '/contact' }}
         />
-        <Routes>
-          <Route path='/' element={
-            <>
-              <Home />
-            </>
-          }></Route>
-          <Route path='/about' element={
-            <>
-              <AboutUs />
-            </>
-          }></Route>
-          <Route path='/blog' element={
-            <>
-              <Blog />
-            </>
-          }></Route>
-          <Route path='/contact' element={
-            <>
-              <ContactUs />
-            </>
-          }></Route>
-          <Route path='/projects' element={
-            <>
-              <Projects />
-            </>
-          }></Route>
-        </Routes>
-        <Footer/>
 
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
+
+        <Footer />
+
+        {/* Floating Scroll-to-Top Button */}
+        {isVisible && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-6 right-6 bg-indigo-600 text-white rounded-full p-4 shadow-lg hover:bg-indigo-700 transition-all duration-300"
+            aria-label="Scroll to top"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7-7-7 7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19V3" />
+            </svg>
+          </button>
+        )}
       </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
