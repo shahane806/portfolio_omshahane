@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Navbar({
   logo = { src: '/vite.svg', alt: 'Logo', text: 'Brand' },
@@ -14,36 +16,66 @@ export default function Navbar({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Animation for menu items and buttons
+  const menuItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.2 } },
+  };
+
   return (
     <nav className={`bg-gray-800 text-white ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
           <div className="flex items-center gap-3">
-            <a href="/"><span className="text-xl font-bold">{logo.text}</span></a>
+            <Link to={"/"}>
+              <motion.span
+                className="text-xl font-semibold tracking-wide"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                {logo.text}
+              </motion.span>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-6 text-sm font-medium">
-            {navItems.map((item) => (
-              <a
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.label}
-                href={item.href}
-                className="hover:text-gray-300 transition"
+                variants={menuItemVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: index * 0.1 }}
               >
-                {item.label}
-              </a>
+                <Link className='hover:text-gray-300 transition' to={item.href}>
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
           </div>
 
           {/* Desktop Button */}
           <div className="hidden md:block">
-            <a
-              href={cta.href}
-              className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
+            <motion.div
+              variants={buttonVariants}
+              initial="hidden"
+              animate="visible"
             >
-              {cta.label}
-            </a>
+              <Link
+                to={cta.href}
+                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
+              >
+                {cta.label}
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,25 +113,43 @@ export default function Navbar({
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-4 pb-4">
+        <motion.div
+          className="md:hidden px-4 pb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        >
           <div className="flex flex-col gap-4">
-            {navItems.map((item) => (
-              <a
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.label}
-                href={item.href}
-                className="hover:text-gray-300"
+                variants={menuItemVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: index * 0.1 }}
               >
-                {item.label}
-              </a>
+                <Link
+                  to={item.href}
+                  className="hover:text-gray-300"
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
-            <a
-              href={cta.href}
-              className="mt-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition text-center"
+            <motion.div
+              variants={buttonVariants}
+              initial="hidden"
+              animate="visible"
             >
-              {cta.label}
-            </a>
+              <Link
+                to={cta.href}
+                className="mt-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition text-center"
+              >
+                {cta.label}
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       )}
     </nav>
   );
