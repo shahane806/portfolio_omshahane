@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -28,9 +28,14 @@ const Footer = () => {
           <a href="mailto:john@example.com" className="hover:text-gray-300 transition">
             <FaEnvelope />
           </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition">
-            <FaTwitter />
-          </a>
+          <a
+  href="https://www.instagram.com/your_username"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-gray-300 transition"
+>
+  <FaInstagram />
+</a>
         </div>
 
         {/* Copyright */}
