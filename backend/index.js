@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const cors = require('cors');
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -14,7 +15,17 @@ app.use(
     })
 );
   
-const PORT = 3568 || process.env.PORT;
+const PORT = process.env.PORT;
+const MONGODBURL = process.env.MONGODBURL;
 app.listen(PORT,()=>{
     console.log(`App is running on port ${PORT}`);
-})
+});
+
+mongoose.connect(MONGODBURL)
+  .then(() => {
+    console.log("MongoDB connected successfully.");
+    
+  })
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err);
+  });

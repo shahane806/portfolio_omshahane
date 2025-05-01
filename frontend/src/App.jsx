@@ -62,7 +62,7 @@ function App() {
 
       <Router>
         <Navbar
-          logo={{ src: '/logo.png', alt: 'Site Logo', text: 'DevHub' }}
+          logo={{ src: '/logo.png', alt: 'Site Logo', text: 'DevOps' }}
           navItems={[
             { label: 'Home', href: '/' },
             { label: 'Blog', href: '/blog' },
@@ -84,23 +84,29 @@ function App() {
 
         {/* Floating Scroll-to-Top Button */}
         {isVisible && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-6 right-6 bg-indigo-600 text-white rounded-full p-4 shadow-lg hover:bg-indigo-700 transition-all duration-300"
-            aria-label="Scroll to top"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7-7-7 7" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19V3" />
-            </svg>
-          </button>
-        )}
+  <button
+    onClick={scrollToTop}
+    className="fixed bottom-6 right-6 bg-indigo-600 text-white rounded-full p-4 shadow-lg hover:bg-indigo-700 transition-all duration-300"
+    aria-label="Scroll to top"
+  >
+   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    className="w-8 h-8 text-white transform rotate-90"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M15 19l-7-7 7-7"
+    />
+  </svg>
+  </button>
+  
+)}
+
       </Router>
     </>
   );

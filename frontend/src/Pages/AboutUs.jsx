@@ -37,26 +37,13 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
           {[
             {
-              name: 'John Doe',
-              role: 'Lead Developer',
+              name: 'Om Shahane',
+              role: 'Software Developer',
               img: 'https://images.unsplash.com/photo-1601948954532-4a0b1d7a1b8f',
               rating: 4.5,
               desc: 'Expert in MERN stack with a passion for innovative problem-solving.',
             },
-            {
-              name: 'Jane Smith',
-              role: 'UI/UX Designer',
-              img: 'https://images.unsplash.com/photo-1601948954532-4a0b1d7a1b8f',
-              rating: 5.0,
-              desc: 'Focused on crafting intuitive and aesthetically pleasing user interfaces.',
-            },
-            {
-              name: 'Alex Brown',
-              role: 'Backend Engineer',
-              img: 'https://images.unsplash.com/photo-1601948954532-4a0b1d7a1b8f',
-              rating: 4.7,
-              desc: 'Building scalable and efficient backend solutions with Node.js.',
-            },
+          
           ].map((member, index) => (
             <motion.div
               key={member.name}
