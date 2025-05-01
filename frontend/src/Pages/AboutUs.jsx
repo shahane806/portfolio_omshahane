@@ -28,7 +28,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto z-10"
         >
-          We are a team of developers crafting impactful digital solutions with a focus on user experience and performance.
+          I'm Om Shahane, a passionate full-stack developer specializing in the MERN stack. I love building efficient, user-friendly applications that solve real-world problems and enhance digital experiences.
         </motion.p>
       </motion.section>
 
@@ -39,7 +39,7 @@ const About = () => {
             {
               name: 'Om Shahane',
               role: 'Software Developer',
-              img: 'https://images.unsplash.com/photo-1601948954532-4a0b1d7a1b8f',
+              img: 'https://avatars.githubusercontent.com/u/71377782?v=4',
               rating: 4.5,
               desc: 'Expert in MERN stack with a passion for innovative problem-solving.',
             },
