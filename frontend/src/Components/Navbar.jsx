@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { SignInWithPopUp, SignOutFirebaseAccount } from '../Firebase/Authentication/auth';
 import {useDispatch,useSelector} from 'react-redux';
 import { signInAction, signOutAction } from '../Store/action-creators';
+;
 export default function Navbar({
   logo = { src: '/vite.svg', alt: 'Logo', text: 'Brand' },
   navItems = [
@@ -64,6 +65,7 @@ export default function Navbar({
       console.log("User Data:",res?.length);
       setUserDataLength(res?.length);
     })
+
   },[user])
   return (
     <nav

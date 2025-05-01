@@ -8,6 +8,7 @@ import ContactUs from "./Pages/ContactUs";
 import Projects from "./Pages/Projects";
 import Footer from "./Components/Footer";
 import { useEffect, useState } from "react";
+import { getMyInfo, setMyInfo } from "./Firebase/RealtimeDatabase/functions";
 
 // Cursor light effect
 function CursorLight() {
@@ -39,7 +40,38 @@ function App() {
 
   // Show the button when the user scrolls down 300px
   useEffect(() => {
-
+    setMyInfo({
+      info: {
+        UserName: "Om Shahane",
+        designation: "Full-Stack Developer",
+      },
+      professionalExperience: [
+        {
+          title: "Software Developer",
+          company: "Hiray Media and Technology",
+          duration: "Nov 2024 - Present",
+          description:
+            "Developing and maintaining Android applications using Flutter and Dart.",
+          skills: ["Flutter", "Dart", "Firebase", "PHP"],
+        },
+        {
+          title: "Intern",
+          company: "NullClass",
+          duration: "Jan 2024 - March 2024",
+          description:
+            "Learn to Build Realtime Website like Stack Overflow using MERN Stack.",
+          skills: ["MongoDB", "Express.js", "React.js", "Node.js"],
+        },
+        {
+          title: "Intern AIML",
+          company: "YBI Foundation",
+          duration: "Oct 2023 - Dec 2023",
+          description:
+            "Learn to implement supervised and unsupervised machine learning algorithms.",
+          skills: ["Python", "Machine Learning", "Deep Learning"],
+        },
+      ],
+    })
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
     };
