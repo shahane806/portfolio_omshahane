@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Blog = () => {
@@ -19,6 +19,9 @@ const Blog = () => {
       description: 'A comparison of two JavaScript runtime environments.',
     },
   ];
+  useEffect(()=>{
+    
+  },[])
   const handleBlocLink = async()=>{
     
   }
