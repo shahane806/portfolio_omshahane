@@ -11,7 +11,8 @@ import {
 const firebaseDatabase = getDatabase(app);
 const myInfo = ref(firebaseDatabase, "myInfo/");
 const contactMessages = ref(firebaseDatabase, "contactMessages/");
-
+const blogMetaData = ref(firebaseDatabase,"blogs/blogMetaData/");
+const blogs = ref(firebaseDatabase,"blogs/blogsData/");
 
 export const getMyInfo = async()=>{
     console.log("Fetching data from Firebase Realtime Database...");
@@ -62,5 +63,19 @@ export const setContactMessages = async(data) =>{
 }
 
 export const getBlogMetaData = async() =>{
-    
+    const snapshot = await get(blogMetaData);
+    if(snapshot.exists()){
+        console.log("Data Fetching from BlogMetaData" + snapshot.val());
+    }else{
+        console.log("Blogs MetaData Not Available");
+    }   
+}
+export const getBlogsData = async() =>{
+    const snapshot = await get(blogs);
+    if(snapshot.exists()){
+        console.log("Data Fetching from Blogs" + snapshot.val());
+
+    }else{
+        console.log("Blogs Not Available");
+    }
 }
