@@ -20,7 +20,7 @@ const Blog = () => {
     },
   ];
   useEffect(()=>{
-    
+    ///Calling the Blog functions of get Blog and meta data here 
   },[])
   const handleBlocLink = async()=>{
     
