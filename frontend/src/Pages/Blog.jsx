@@ -19,7 +19,9 @@ const Blog = () => {
       description: 'A comparison of two JavaScript runtime environments.',
     },
   ];
-
+  const handleBlocLink = async()=>{
+    
+  }
   return (
     <main className="bg-gradient-to-r from-sky-400 to-indigo-500 text-white">
       {/* Hero Section */}
@@ -68,12 +70,12 @@ const Blog = () => {
               />
               <h3 className="text-2xl text-white font-semibold mb-4">{post.title}</h3>
               <p className="text-gray-400">{post.description}</p>
-              <motion.a
-                href="#"
+              <motion.button
+                onClick={handleBlocLink}
                 className="text-indigo-400 hover:text-indigo-300 mt-4 inline-block"
               >
                 Read More
-              </motion.a>
+              </motion.button>
             </motion.div>
           ))}
         </div>

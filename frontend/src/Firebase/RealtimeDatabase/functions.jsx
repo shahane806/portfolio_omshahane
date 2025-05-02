@@ -61,3 +61,6 @@ export const setContactMessages = async(data) =>{
     console.log("Data set successfully")
 }
 
+export const getBlogMetaData = async() =>{
+    
+}
