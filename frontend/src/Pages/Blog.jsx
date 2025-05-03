@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-
+import { getBlogMetaData } from '../Firebase/RealtimeDatabase/functions';
 const Blog = () => {
   const posts = [
     {
@@ -19,7 +19,21 @@ const Blog = () => {
       description: 'A comparison of two JavaScript runtime environments.',
     },
   ];
-
+  const [postsMetaData,setPostsMetaData] = useState([]);
+  
+  useEffect(()=>{
+    getBlogMetaData().then((res)=>{
+      console.log(res)
+      if(res == undefined){
+        setPostsMetaData([]);
+      }else{
+        setPostsMetaData(res);
+      }
+    })
+  },[])
+  const handleBlocLink = async()=>{
+    
+  }
   return (
     <main className="bg-gradient-to-r from-sky-400 to-indigo-500 text-white">
       {/* Hero Section */}
@@ -51,9 +65,9 @@ const Blog = () => {
       </motion.section>
 
       {/* Blog Posts Section */}
-      <section className="py-20 bg-gray-800">
+     {postsMetaData.length !=0 && <section className="py-20 bg-gray-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
-          {posts.map((post, index) => (
+          {postsMetaData.map((post, index) => (
             <motion.div
               key={post.title}
               initial={{ opacity: 0 }}
@@ -68,16 +82,23 @@ const Blog = () => {
               />
               <h3 className="text-2xl text-white font-semibold mb-4">{post.title}</h3>
               <p className="text-gray-400">{post.description}</p>
-              <motion.a
-                href="#"
+              <motion.button
+                onClick={handleBlocLink}
                 className="text-indigo-400 hover:text-indigo-300 mt-4 inline-block"
               >
                 Read More
-              </motion.a>
+              </motion.button>
             </motion.div>
           ))}
         </div>
-      </section>
+      </section>}
+      {
+       postsMetaData.length == 0 &&  <section className="py-20 bg-gray-800">
+       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
+         <p>Blogs Not Available</p>
+       </div>
+     </section>
+      }
     </main>
   );
 };

@@ -63,6 +63,7 @@ export default function Navbar({
   useEffect(()=>{
     user.then((res)=>{
       console.log("User Data:",res?.length);
+      console.log("User Data:",res);
       setUserDataLength(res?.length);
     })
 

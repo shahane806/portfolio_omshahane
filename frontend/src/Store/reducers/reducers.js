@@ -4,8 +4,11 @@ export const baseReducer = async (state = [], action) => {
     switch (action.type) {
       case "signIn":
         console.log("Base Reducer: signIn");
+        if(action.payload != null){
         setUserCredentials(action.payload);
-        return [state, action.payload];
+        return [action.payload];
+        }
+        return [];
   
       case "signOut":
         console.log("Base Reducer: signOut");

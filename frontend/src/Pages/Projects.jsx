@@ -1,7 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { getProjectMetaData } from '../Firebase/RealtimeDatabase/functions';
 
 const Projects = () => {
+  const projects = [
+    {
+      title: 'E-commerce Website',
+      Svg: () => (
+        <img
+          src="https://www.svgrepo.com/show/343883/ecommerce-online-shopping-app.svg"
+          alt="E-commerce Website"
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+      ),
+      description: 'A full-stack e-commerce platform built with React, Node.js, and MongoDB.',
+      github: 'https://github.com',
+      demo: 'https://demo.com'
+    },
+    {
+      title: 'Portfolio Website',
+      Svg: () => (
+        <img
+          src="https://www.svgrepo.com/show/429905/portfolio-my-profile-browser.svg"
+          alt="Portfolio Website"
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+      ),
+      description: 'A personal portfolio built using React and Tailwind CSS to showcase my work.',
+      github: 'https://github.com',
+      demo: 'https://demo.com'
+    },
+    {
+      title: 'Real-time Chat App',
+      Svg: () => (
+        <img
+          src="https://www.svgrepo.com/show/343883/ecommerce-online-shopping-app.svg"
+          alt="Real-time Chat App"
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+      ),
+      description: 'A chat application using Node.js, Express, and WebSocket for real-time messaging.',
+      github: 'https://github.com',
+      demo: 'https://demo.com'
+    },
+  ];
+  const [projectMetaData, setProjectMetaData] = useState([]);
+  useEffect(() => {
+    getProjectMetaData().then((res) => {
+      if (res == undefined) {
+        setProjectMetaData([]);
+      } else {
+        setProjectMetaData(res);
+      }
+    })
+  }, [])
   return (
     <main className="bg-gray-900 text-white">
       {/* Hero Section */}
@@ -33,51 +85,11 @@ const Projects = () => {
       </motion.section>
 
       {/* Projects Section */}
-      <section className="py-20 bg-gray-800">
+      {
+        projectMetaData.length != 0 &&  <section className="py-20 bg-gray-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
-          {[ 
-            {
-              title: 'E-commerce Website',
-              Svg: () => (
-                <img
-                  src="https://www.svgrepo.com/show/343883/ecommerce-online-shopping-app.svg"
-                  alt="E-commerce Website"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-              ),
-              description: 'A full-stack e-commerce platform built with React, Node.js, and MongoDB.',
-              github: 'https://github.com',
-              demo: 'https://demo.com'
-            },
-            {
-              title: 'Portfolio Website',
-              Svg: () => (
-                <img
-                  src="https://www.svgrepo.com/show/429905/portfolio-my-profile-browser.svg"
-                  alt="Portfolio Website"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-              ),
-              description: 'A personal portfolio built using React and Tailwind CSS to showcase my work.',
-              github: 'https://github.com',
-              demo: 'https://demo.com'
-            },
-            {
-              title: 'Real-time Chat App',
-              Svg: () => (
-                <img
-                  src="https://www.svgrepo.com/show/343883/ecommerce-online-shopping-app.svg"
-                  alt="Real-time Chat App"
-                  className="w-full h-48 object-cover rounded-lg mb-4"
-                />
-              ),
-              description: 'A chat application using Node.js, Express, and WebSocket for real-time messaging.',
-              github: 'https://github.com',
-              demo: 'https://demo.com'
-            },
-          ].map((project, index) => (
-            <motion.div
-              key={project.title}
+          {projectMetaData.map((project, index) => {
+            return <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: index * 0.3 }}
@@ -95,7 +107,7 @@ const Projects = () => {
                   className="bg-gradient-to-r from-sky-400 to-indigo-500 p-3 rounded-full text-white inline-flex items-center justify-center space-x-2 hover:bg-indigo-400 transition-all"
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns={project.svg}
                     fill="currentColor"
                     viewBox="0 0 16 16"
                     className="w-6 h-6"
@@ -113,7 +125,7 @@ const Projects = () => {
                   className="bg-gradient-to-r from-sky-400 to-indigo-500 p-3 rounded-full text-white inline-flex items-center justify-center space-x-2 hover:bg-indigo-400 transition-all"
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns={project.svg}
                     fill="currentColor"
                     viewBox="0 0 16 16"
                     className="w-6 h-6"
@@ -124,9 +136,20 @@ const Projects = () => {
                 </motion.a>
               </div>
             </motion.div>
-          ))}
+          })
+
+          }
         </div>
       </section>
+      }{
+        projectMetaData.length == 0 &&  <section className="py-20 bg-gray-800">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
+          <p>
+            Projects Not Available
+          </p>
+        </div>
+      </section>
+      }
     </main>
   );
 };
