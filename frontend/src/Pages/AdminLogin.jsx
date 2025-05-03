@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
+import { SignInWithEmailAndPassword } from '../Firebase/Authentication/auth';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Email:', email, 'Password:', password);
+    const res  = await SignInWithEmailAndPassword({email,password});
+    console.log("Submit Login"+res)
+    if(res == undefined){
+        alert("❌ Invalid Credentials");
+    }else{
+        alert("✅ Successfully LoggedIn")
+    }
   };
 
   return (
