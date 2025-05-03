@@ -1,6 +1,7 @@
 import {
   getAuth,
   signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signOut,
   getAdditionalUserInfo,
@@ -26,6 +27,7 @@ export const SignInWithPopUp = async () => {
       return null;
     }
   };
+export const SignInWithEmailAndPassword = async() =>{}
 export const SignOutFirebaseAccount = async () => {
   const res = await signOut(auth)
     .then(() => {

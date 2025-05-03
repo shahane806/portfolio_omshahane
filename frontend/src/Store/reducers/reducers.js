@@ -15,6 +15,10 @@ export const baseReducer = async (state = [], action) => {
         clearAllLocalStorage();
         return [];
       
+      case "adminLogin":
+        console.log("Base Reducer : adminLogin");
+        return [action.payload];
+
         default:
         console.log("Base Reducer: Hello Default");
         const res = await getUserCredentials();

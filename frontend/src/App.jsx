@@ -8,7 +8,12 @@ import ContactUs from "./Pages/ContactUs";
 import Projects from "./Pages/Projects";
 import Footer from "./Components/Footer";
 import { useEffect, useState } from "react";
-import { setMyInfo, setProfessionalDataExperienceData } from "./Firebase/RealtimeDatabase/functions";
+import { getMyInfo, setMyInfo, setProfessionalDataExperienceData } from "./Firebase/RealtimeDatabase/functions";
+import AdminLogin from "./Pages/AdminLogin";
+import { useSelector } from "react-redux";
+import AdminDashboard from "./Pages/AdminDashboard";
+import ForgetPasswordAdmin from "./Pages/AdminForgetPassword";
+import NotFound from "./Pages/NotFound";
 
 // Cursor light effect
 function CursorLight() {
@@ -57,8 +62,18 @@ function App() {
       behavior: "smooth",
     });
   };
-
+  const [myInfo,setMyInfo] = useState([]);
   useEffect(() => {
+    getMyInfo().then((res)=>{
+      if(res == undefined){
+        console.log("IN App")
+         setMyInfo([]);
+      }else{
+        console.log("IN App")
+        console.log(res)
+         setMyInfo(res);
+      }
+    })
     // setMyInfo({
     //   UserName: "Om Shahane",
     //   designation: "Full-Stack Developer",
@@ -91,7 +106,8 @@ function App() {
     // )
   }, [])
 
-
+  const adminLogin = useSelector((state)=>{state?.baseReducer});
+  
 
   return (
     <>
@@ -115,10 +131,13 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/admin" element={adminLogin != [] ? <AdminLogin/> : <AdminDashboard/>}/>
+          <Route path="/forgetPasswordAdmin" element={<ForgetPasswordAdmin/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
 
         <Footer
-          info={{ UserName: "Om Shahane", designation: "Full-Stack Developer" }}
+          info={{ UserName: myInfo.UserName, designation: myInfo.designation }}
         />
 
         {/* Floating Scroll-to-Top Button */}

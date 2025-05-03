@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SignInWithPopUp, SignOutFirebaseAccount } from '../Firebase/Authentication/auth';
-import {useDispatch,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInAction, signOutAction } from '../Store/action-creators';
-;
+
 export default function Navbar({
   logo = { src: '/vite.svg', alt: 'Logo', text: 'Brand' },
   navItems = [
@@ -20,7 +20,6 @@ export default function Navbar({
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -29,8 +28,6 @@ export default function Navbar({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  
- 
   const menuItemVariants = {
     hidden: { opacity: 0, x: -10 },
     visible: {
@@ -48,26 +45,27 @@ export default function Navbar({
       transition: { duration: 0.5, delay: 0.2 },
     },
   };
+
   const dispatch = useDispatch();
-  const handleSignIn = async()=>{
+  const handleSignIn = async () => {
     const res = await SignInWithPopUp();
     console.log(res);
-    await signInAction(dispatch,res);
-   }
-  const handleSignOut = async()=>{
+    await signInAction(dispatch, res);
+  };
+  const handleSignOut = async () => {
     const res = await SignOutFirebaseAccount();
-    await signOutAction(dispatch,res);
-  }
+    await signOutAction(dispatch, res);
+  };
   const user = useSelector((state) => state?.baseReducer);
-  const [userDataLength,setUserDataLength] = useState(0);
-  useEffect(()=>{
-    user.then((res)=>{
-      console.log("User Data:",res?.length);
-      console.log("User Data:",res);
+  const [userDataLength, setUserDataLength] = useState(0);
+  useEffect(() => {
+    user.then((res) => {
+      console.log("User Data:", res?.length);
+      console.log("User Data:", res);
       setUserDataLength(res?.length);
-    })
+    });
+  }, [user]);
 
-  },[user])
   return (
     <nav
       className={`w-full sticky top-0 left-0 right-0 z-50 transition-colors duration-500 ease-in-out 
@@ -112,24 +110,23 @@ export default function Navbar({
             <motion.div variants={buttonVariants} initial="hidden" animate="visible">
               <Link
                 to={cta.href}
-                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"
+                className="px-4 py-2 bg-[#0F52BA] rounded hover:bg-[#0D47A1] transition"
               >
                 {cta.label}
               </Link>
             </motion.div>
 
-            {/* Auth Buttons */}
-            {userDataLength!=0 ? (
+            {userDataLength != 0 ? (
               <button
                 onClick={handleSignOut}
-                className="px-3 py-2 text-sm bg-red-500 rounded hover:bg-red-600"
+                className="px-3 py-2 text-sm bg-[#0F52BA] rounded hover:bg-[#0D47A1]"
               >
                 Logout
               </button>
             ) : (
               <button
                 onClick={handleSignIn}
-                className="px-3 py-2 text-sm bg-green-500 rounded hover:bg-green-600"
+                className="px-3 py-2 text-sm bg-[#0F52BA] rounded hover:bg-[#0D47A1]"
               >
                 Sign In
               </button>
@@ -203,24 +200,24 @@ export default function Navbar({
             >
               <Link
                 to={cta.href}
-                className="mt-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition text-center"
+                className="mt-2 px-4 py-2 bg-[#0F52BA] rounded hover:bg-[#0D47A1] transition text-center"
               >
                 {cta.label}
               </Link>
             </motion.div>
 
             {/* Auth Buttons */}
-            {userDataLength!=0 ? (
+            {userDataLength != 0 ? (
               <button
                 onClick={handleSignOut}
-                className="mt-2 px-4 py-2 bg-red-500 rounded hover:bg-red-600 text-center"
+                className="mt-2 px-4 py-2 bg-[#0F52BA] rounded hover:bg-[#0D47A1] text-center"
               >
                 Logout
               </button>
             ) : (
               <button
                 onClick={handleSignIn}
-                className="mt-2 px-4 py-2 bg-green-500 rounded hover:bg-green-600 text-center"
+                className="mt-2 px-4 py-2 bg-[#0F52BA] rounded hover:bg-[#0D47A1] text-center"
               >
                 Sign In
               </button>
