@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-
+import { getBlogMetaData } from '../Firebase/RealtimeDatabase/functions';
 const Blog = () => {
   const posts = [
     {
@@ -19,8 +19,17 @@ const Blog = () => {
       description: 'A comparison of two JavaScript runtime environments.',
     },
   ];
+  const [postsMetaData,setPostsMetaData] = useState([]);
+  
   useEffect(()=>{
-    ///Calling the Blog functions of get Blog and meta data here 
+    getBlogMetaData().then((res)=>{
+      console.log(res)
+      if(res == undefined){
+        setPostsMetaData([]);
+      }else{
+        setPostsMetaData(res);
+      }
+    })
   },[])
   const handleBlocLink = async()=>{
     
@@ -56,9 +65,9 @@ const Blog = () => {
       </motion.section>
 
       {/* Blog Posts Section */}
-      <section className="py-20 bg-gray-800">
+     {postsMetaData.length !=0 && <section className="py-20 bg-gray-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
-          {posts.map((post, index) => (
+          {postsMetaData.map((post, index) => (
             <motion.div
               key={post.title}
               initial={{ opacity: 0 }}
@@ -82,7 +91,14 @@ const Blog = () => {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section>}
+      {
+       postsMetaData.length == 0 &&  <section className="py-20 bg-gray-800">
+       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 px-6">
+         <p>Blogs Not Available</p>
+       </div>
+     </section>
+      }
     </main>
   );
 };

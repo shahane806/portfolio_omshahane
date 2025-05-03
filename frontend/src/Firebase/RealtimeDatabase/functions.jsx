@@ -13,6 +13,8 @@ const myInfo = ref(firebaseDatabase, "myInfo/");
 const contactMessages = ref(firebaseDatabase, "contactMessages/");
 const blogMetaData = ref(firebaseDatabase,"blogs/blogMetaData/");
 const blogs = ref(firebaseDatabase,"blogs/blogsData/");
+const projectMetaData = ref(firebaseDatabase,"projects/projectMetaData/");
+const professionalExperienceData = ref(firebaseDatabase,"experience/");
 
 export const getMyInfo = async()=>{
     console.log("Fetching data from Firebase Realtime Database...");
@@ -66,6 +68,9 @@ export const getBlogMetaData = async() =>{
     const snapshot = await get(blogMetaData);
     if(snapshot.exists()){
         console.log("Data Fetching from BlogMetaData" + snapshot.val());
+       
+            return snapshot.val();
+  
     }else{
         console.log("Blogs MetaData Not Available");
     }   
@@ -78,4 +83,31 @@ export const getBlogsData = async() =>{
     }else{
         console.log("Blogs Not Available");
     }
+}
+
+export const getProjectMetaData = async()=>{
+    const snapshot = await get(projectMetaData);
+    if(snapshot.exists()){
+        console.log("Projects Meta Data is Fetching From Database" + snapshot.val())
+        return snapshot.val();
+    }else{
+        console.log("Projects Meta Data is not Available");
+        return null;
+    }
+}
+
+export const getProfessionalExperienceData = async()=>{
+    const snapshot = await get(professionalExperienceData);
+    if(snapshot.exists()){
+        console.log("Professional Experience Data is Fetching From Database"+ snapshot.val());
+        return snapshot.val();
+    }else{
+        console.log("Professional Experience Data is Not Available");
+        return null;
+    }
+}
+
+export const setProfessionalDataExperienceData = async(data)=>{
+    await set(professionalExperienceData,data);
+    console.log("Professional Experience Data is Set in the Database ");
 }
