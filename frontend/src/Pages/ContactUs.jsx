@@ -2,6 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
+  const handleSubmit = async(e) =>{
+    e.preventDefault();
+    
+  }
   return (
     <main className="bg-gradient-to-r from-sky-400 to-indigo-500 text-white">
       {/* Hero Section */}
@@ -52,6 +56,7 @@ const Contact = () => {
             />
             <motion.button
               type="submit"
+              onClick={handleSubmit}
               className="col-span-2 mt-6 py-4 px-10 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300"
             >
               Send Message
