@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { SignInWithEmailAndPassword } from '../Firebase/Authentication/auth';
+import {SignInWithEmailAndPassword} from '../Firebase/Authentication/auth';
+import { adminLoginAction, signInAction } from '../Store/action-creators';
+import { useDispatch } from 'react-redux';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const dispatch = useDispatch();
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Email:', email, 'Password:', password);
-    const res  = await SignInWithEmailAndPassword({email,password});
-    console.log("Submit Login"+res)
+   const res = await SignInWithEmailAndPassword({email,password});
     if(res == undefined){
-        alert("❌ Invalid Credentials");
-    }else{
-        alert("✅ Successfully LoggedIn")
-    }
+      alert("❌ Invalid Credentials");
+  }else{
+      alert("✅ Successfully LoggedIn")
+      await adminLoginAction(dispatch,res);
+  }
   };
 
   return (

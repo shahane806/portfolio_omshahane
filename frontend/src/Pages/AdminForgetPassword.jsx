@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { SendPasswordResetEmail } from '../Firebase/Authentication/auth';
 
 const AdminForgetPassword = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Reset link sent to:', email);
-    // Add API call logic here
+     const res = await SendPasswordResetEmail({email});
+    if(res){
+      alert("❌ Invalid Email Address");
+    }else{
+      alert("✅ Password Reset Link Sent to Your Email Address");
+    }
   };
 
   return (

@@ -8,7 +8,7 @@ import ContactUs from "./Pages/ContactUs";
 import Projects from "./Pages/Projects";
 import Footer from "./Components/Footer";
 import { useEffect, useState } from "react";
-import { getMyInfo, setMyInfo, setProfessionalDataExperienceData } from "./Firebase/RealtimeDatabase/functions";
+import { getMyInfo } from "./Firebase/RealtimeDatabase/functions";
 import AdminLogin from "./Pages/AdminLogin";
 import { useSelector } from "react-redux";
 import AdminDashboard from "./Pages/AdminDashboard";
@@ -74,41 +74,17 @@ function App() {
          setMyInfo(res);
       }
     })
-    // setMyInfo({
-    //   UserName: "Om Shahane",
-    //   designation: "Full-Stack Developer",
-    // })
-    // setProfessionalDataExperienceData(
-    //    [ {
-    //       title: "Software Developer",
-    //       company: "Hiray Media and Technology",
-    //       duration: "Nov 2024 - Present",
-    //       description:
-    //         "Developing and maintaining Android applications using Flutter and Dart.",
-    //       skills: ["Flutter", "Dart", "Firebase", "PHP"],
-    //     },
-    //     {
-    //       title: "Intern",
-    //       company: "NullClass",
-    //       duration: "Jan 2024 - March 2024",
-    //       description:
-    //         "Learn to Build Realtime Website like Stack Overflow using MERN Stack.",
-    //       skills: ["MongoDB", "Express.js", "React.js", "Node.js"],
-    //     },
-    //     {
-    //       title: "Intern AIML",
-    //       company: "YBI Foundation",
-    //       duration: "Oct 2023 - Dec 2023",
-    //       description:
-    //         "Learn to implement supervised and unsupervised machine learning algorithms.",
-    //       skills: ["Python", "Machine Learning", "Deep Learning"],
-    //     }]
-    // )
   }, [])
 
-  const adminLogin = useSelector((state)=>{state?.baseReducer});
-  
-
+  const admin = useSelector((state) => state?.adminReducer);
+  const [adminDataLength, setAdminDataLength] = useState(0);
+  useEffect(() => {
+    admin.then((res) => {
+      console.log("Admin Data:", res?.length);
+      console.log("Admin Data:", res);
+      setAdminDataLength(res?.length);
+    });
+  }, [admin]);
   return (
     <>
       <CursorLight />
@@ -131,7 +107,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/admin" element={adminLogin != [] ? <AdminLogin/> : <AdminDashboard/>}/>
+          <Route path="/admin" element={adminDataLength != 0 ?   <AdminDashboard/>:<AdminLogin/>}/>
           <Route path="/forgetPasswordAdmin" element={<ForgetPasswordAdmin/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>

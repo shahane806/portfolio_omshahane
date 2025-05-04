@@ -31,16 +31,16 @@ export const SignInWithPopUp = async () => {
   }
 };
 export const SignInWithEmailAndPassword = async (data) => {
-  signInWithEmailAndPassword(auth, data.email, data.password).then((res) => {
-    if (res == undefined) {
-      return null;
-    } else {
-      return res;
-    }
-  }).catch((e) => {
-    console.log("SignInWithEmailAndPassword" + e)
+ try {
+  const res = await signInWithEmailAndPassword(auth, data.email, data.password);
+  if(res == undefined){
     return null;
-  })
+  }else{
+    return res;
+  }
+ } catch (error) {
+    return null;
+ }
 }
 export const CreateUserWithEmailAndPassword = async (data) => {
   createUserWithEmailAndPassword(auth, data.email, data.password).then((res) => {
@@ -66,5 +66,14 @@ export const SignOutFirebaseAccount = async () => {
   return res;
 };
 
-export const SendPasswordResetEmail = async(data) =>{}
+export const SendPasswordResetEmail = async(data) =>{
+  await sendPasswordResetEmail(auth,data.email).then(()=>{
+    console.log("Password Reset Email Sent Successfully")
+    return true;
+  }).catch((e)=>{
+    console.log("Error in sending Password Reset Email",e);
+    return null;
+  })
+  
+}
 export const ConfirmPasswordReset = async(data)=>{}

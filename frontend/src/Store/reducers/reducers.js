@@ -9,22 +9,18 @@ export const baseReducer = async (state = [], action) => {
         return [action.payload];
         }
         return [];
-  
+      
       case "signOut":
         console.log("Base Reducer: signOut");
         clearAllLocalStorage();
         return [];
       
-      case "adminLogin":
-        console.log("Base Reducer : adminLogin");
-        return [action.payload];
-
         default:
         console.log("Base Reducer: Hello Default");
-        const res = await getUserCredentials();
+        const res =  await getUserCredentials();
         console.log("Base Reducer: User Data:", res);
         if(res != null){
-            return [state, res];
+            return [res];
         }
         return state;
     }
