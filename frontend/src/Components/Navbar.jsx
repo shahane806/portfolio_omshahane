@@ -131,6 +131,8 @@ export default function Navbar({
                 Sign In
               </button>
             )}
+          <Link className="text-sm text-gray-300" to={"/admin"}>Admin</Link>
+
           </div>
 
           {/* Mobile Menu Button */}

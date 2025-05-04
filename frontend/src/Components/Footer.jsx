@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from 'react-icons/fa';
-import {Link} from 'react-router-dom';
+
 const Footer = ({info}) => {
   
   return (
@@ -16,8 +16,6 @@ const Footer = ({info}) => {
         <div className="text-center md:text-left">
           <h4 className="text-lg font-semibold">{info.UserName}</h4>
           <p className="text-sm text-gray-300">{info.designation}</p>
-          <Link className="text-sm text-gray-300" path="/admin">Admin</Link>
-          
         </div>
 
         {/* Social Media Icons */}
