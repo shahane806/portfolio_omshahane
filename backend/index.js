@@ -2,29 +2,30 @@ const dotenv = require("dotenv");
 const cors = require('cors');
 const express = require("express");
 const mongoose = require("mongoose");
-
+const { route } = require('./Routers/routes');
 const app = express();
 
 dotenv.config();
 app.use(cors());
+
 app.use(express.json());
 app.use(
-    express.urlencoded({
-      extended: false,
-      limit: '100kb'
-    })
+  express.urlencoded({
+    extended: false,
+    limit: '100kb'
+  })
 );
-  
+app.use(route);
 const PORT = process.env.PORT;
 const MONGODBURL = process.env.MONGODBURL;
-app.listen(PORT,()=>{
-    console.log(`App is running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`);
 });
 
 mongoose.connect(MONGODBURL)
   .then(() => {
     console.log("MongoDB connected successfully.");
-    
+
   })
   .catch((err) => {
     console.error("MongoDB connection failed:", err);
