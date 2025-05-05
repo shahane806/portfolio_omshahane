@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import AdminDashboard from "./Pages/AdminDashboard";
 import ForgetPasswordAdmin from "./Pages/AdminForgetPassword";
 import NotFound from "./Pages/NotFound";
+import { getHome } from "./Apis/apis";
 
 // Cursor light effect
 function CursorLight() {
@@ -64,6 +65,7 @@ function App() {
   };
   const [myInfo,setMyInfo] = useState([]);
   useEffect(() => {
+    getHome();
     getMyInfo().then((res)=>{
       if(res == undefined){
         console.log("IN App")
