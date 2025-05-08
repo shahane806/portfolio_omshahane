@@ -9,9 +9,16 @@ import {
   signOut,
   getAdditionalUserInfo,
 } from "firebase/auth";
+
 import { app } from "../firebase";
+import { setUserDetails } from "../RealtimeDatabase/functions";
 
 const auth = getAuth(app);
+
+export const fetchRegistrationData = async()=>{
+  
+}
+
 export const SignInWithPopUp = async () => {
   try {
     const res = await signInWithPopup(auth, new GoogleAuthProvider());
@@ -19,6 +26,10 @@ export const SignInWithPopUp = async () => {
 
     if (isNewUser) {
       console.log("New User Registered Successfully");
+      const user = 
+      { id: res.user.uid, username: res.user.displayName, mobile: res.user.phoneNumber, date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
+    
+      setUserDetails(user);
     } else {
       console.log("User Logged In Successfully");
     }
@@ -36,7 +47,12 @@ export const SignInWithEmailAndPassword = async (data) => {
   if(res == undefined){
     return null;
   }else{
+    const user = 
+      { id: res.user.uid, username: res.user.displayName, method: "", date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
+    
+    setUserDetails(user);
     return res;
+
   }
  } catch (error) {
     return null;

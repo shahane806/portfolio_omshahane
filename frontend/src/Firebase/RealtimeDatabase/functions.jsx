@@ -4,8 +4,10 @@ import {
   get,
   ref,
   set,
+  
   update,
   remove,
+  push,
 } from "firebase/database";
 
 const firebaseDatabase = getDatabase(app);
@@ -15,7 +17,23 @@ const blogMetaData = ref(firebaseDatabase,"blogs/blogMetaData/");
 const blogs = ref(firebaseDatabase,"blogs/blogsData/");
 const projectMetaData = ref(firebaseDatabase,"projects/projectMetaData/");
 const professionalExperienceData = ref(firebaseDatabase,"experience/");
+const users = ref(firebaseDatabase,"users/");
+export const setUserDetails = async(data)=>{
+    console.log("Inserting data to firebase realTimeDatabase")
+    await push(users,data);
+    console.log("Data set successfully")
+}
+export const getUsersList = async()=>{
 
+    const snapshot = await get(users);
+    if(snapshot.exists()){
+       
+        return snapshot.val();
+    }else{
+        console.log("No data available");
+        return null;
+    }
+}
 export const getMyInfo = async()=>{
     console.log("Fetching data from Firebase Realtime Database...");
     const snapshot = await get(myInfo);
