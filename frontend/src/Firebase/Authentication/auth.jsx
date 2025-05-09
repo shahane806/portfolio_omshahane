@@ -47,12 +47,7 @@ export const SignInWithEmailAndPassword = async (data) => {
   if(res == undefined){
     return null;
   }else{
-    const user = 
-      { id: res.user.uid, username: res.user.displayName, method: "", date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
-    
-    setUserDetails(user);
     return res;
-
   }
  } catch (error) {
     return null;

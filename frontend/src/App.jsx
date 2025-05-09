@@ -15,6 +15,7 @@ import AdminDashboard from "./Pages/AdminDashboard";
 import ForgetPasswordAdmin from "./Pages/AdminForgetPassword";
 import NotFound from "./Pages/NotFound";
 import { getHome } from "./Apis/apis";
+import BlogUploadForm from "./Pages/BlogApplication";
 
 // Cursor light effect
 function CursorLight() {
@@ -111,6 +112,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/admin" element={adminDataLength != 0 ?   <AdminDashboard/>:<AdminLogin/>}/>
           <Route path="/forgetPasswordAdmin" element={<ForgetPasswordAdmin/>}/>
+          <Route path="/blogDashboard" element={<BlogUploadForm/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
 
