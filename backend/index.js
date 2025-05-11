@@ -22,7 +22,7 @@ app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);
 });
 
-mongoose.connect(MONGODBURL)
+   mongoose.connect(MONGODBURL)
   .then(() => {
     console.log("MongoDB connected successfully.");
 
@@ -30,3 +30,4 @@ mongoose.connect(MONGODBURL)
   .catch((err) => {
     console.error("MongoDB connection failed:", err);
   });
+

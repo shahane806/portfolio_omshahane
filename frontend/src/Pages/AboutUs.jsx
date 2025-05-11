@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const About = () => {
+const About = (props) => {
   return (
     <main className="bg-gradient-to-r from-sky-400 to-indigo-500 text-white">
       {/* Hero Section */}
@@ -28,7 +28,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto z-10"
         >
-          I'm Om Shahane, a passionate full-stack developer specializing in the MERN stack. I love building efficient, user-friendly applications that solve real-world problems and enhance digital experiences.
+          I'm {props.fullName ?? "UserName"}, a passionate full-stack developer specializing in the {props.stack ?? "MERN"} stack. I love building efficient, user-friendly applications that solve real-world problems and enhance digital experiences.
         </motion.p>
       </motion.section>
 
@@ -37,11 +37,11 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
           {[
             {
-              name: 'Om Shahane',
-              role: 'Software Developer',
-              img: 'https://avatars.githubusercontent.com/u/71377782?v=4',
-              rating: 4.5,
-              desc: 'Expert in MERN stack with a passion for innovative problem-solving.',
+              name: `${props.fullName ?? "UserName"}`,
+              role: `${props.role ?? "Software Developer"}`,
+              img: `${props.userImg ?? "https://avatars.githubusercontent.com/u/71377782?v=4"}`,
+              rating: `${props.rating ?? 4.5}`,
+              desc: `${props.desc ?? "Expert in MERN stack with a passion for innovative problem-solving."}`,
             },
           
           ].map((member, index) => (

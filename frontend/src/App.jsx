@@ -15,8 +15,7 @@ import AdminDashboard from "./Pages/AdminDashboard";
 import ForgetPasswordAdmin from "./Pages/AdminForgetPassword";
 import NotFound from "./Pages/NotFound";
 import { getHome } from "./Apis/apis";
-import BlogUploadForm from "./Pages/BlogApplication";
-
+import UploadForm from "./Pages/UploadApplication";
 // Cursor light effect
 function CursorLight() {
   useEffect(() => {
@@ -27,8 +26,9 @@ function CursorLight() {
     document.body.appendChild(light);
 
     const moveLight = (e) => {
-      light.style.transform = `translate(${e.pageX - 100}px, ${e.pageY - 100
-        }px)`; // Centering
+      light.style.transform = `translate(${e.pageX - 100}px, ${
+        e.pageY - 100
+      }px)`; // Centering
     };
 
     document.addEventListener("mousemove", moveLight);
@@ -46,7 +46,6 @@ function App() {
 
   // Show the button when the user scrolls down 300px
   useEffect(() => {
-
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
     };
@@ -64,20 +63,20 @@ function App() {
       behavior: "smooth",
     });
   };
-  const [myInfo,setMyInfo] = useState([]);
+  const [myInfo, setMyInfo] = useState([]);
   useEffect(() => {
     getHome();
-    getMyInfo().then((res)=>{
-      if(res == undefined){
-        console.log("IN App")
-         setMyInfo([]);
-      }else{
-        console.log("IN App")
-        console.log(res)
-         setMyInfo(res);
+    getMyInfo().then((res) => {
+      if (res == undefined) {
+        console.log("IN App");
+        setMyInfo([]);
+      } else {
+        console.log("IN App");
+        console.log(res);
+        setMyInfo(res);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const admin = useSelector((state) => state?.adminReducer);
   const [adminDataLength, setAdminDataLength] = useState(0);
@@ -106,14 +105,40 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutUs />} />
+          <Route
+            path="/about"
+            element={
+              <AboutUs
+                fullName={"Om Shahane"}
+                role={"Software Developer"}
+                rating={5}
+                desc={
+                  "Expert in MERN stack with a passion for innovative problem-solving."
+                }
+                userImg={"https://avatars.githubusercontent.com/u/71377782?v=4"}
+              />
+            }
+          />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/admin" element={adminDataLength != 0 ?   <AdminDashboard/>:<AdminLogin/>}/>
-          <Route path="/forgetPasswordAdmin" element={<ForgetPasswordAdmin/>}/>
-          <Route path="/blogDashboard" element={<BlogUploadForm/>}/>
-          <Route path="*" element={<NotFound/>}/>
+          <Route
+            path="/admin"
+            element={adminDataLength != 0 ? <AdminDashboard /> : <AdminLogin />}
+          />
+          <Route
+            path="/forgetPasswordAdmin"
+            element={<ForgetPasswordAdmin />}
+          />
+          <Route
+            path="/blogUpload"
+            element={<UploadForm application={"Blog Post"} />}
+          />
+          <Route
+            path="/projectUpload"
+            element={<UploadForm application={"Project"} />}
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         <Footer

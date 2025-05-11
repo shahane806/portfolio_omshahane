@@ -88,11 +88,11 @@ const userActivity = [
 // ];
 
 const menuItems = [
-  { name: "Home", icon: Home, path: "#" },
-  { name: "Blogs", icon: FileText, path: "#" },
-  { name: "Projects", icon: FolderOpen, path: "#" },
-  { name: "Analytics", icon: BarChart3, path: "#" },
-  { name: "Settings", icon: Settings, path: "#" },
+  { name: "Home", icon: Home, path: "/admin" },
+  { name: "Blogs", icon: FileText, path: "/blog" },
+  { name: "Projects", icon: FolderOpen, path: "/projects" },
+  { name: "Analytics", icon: BarChart3, path: "/analytics" },
+  { name: "Settings", icon: Settings, path: "/settings" },
   { name: "Logout", icon: DoorClosed, path: "#" },
 ];
 
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
           {menuItems.map((item, index) => (
             <Link
               key={index}
-              path={item.path}
+              to={item.path}
               className="flex items-center gap-3 p-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200"
             >
               {item.name != "Logout" && (
@@ -214,7 +214,8 @@ const AdminDashboard = () => {
                 Blog Posts
               </h3>
               <button className="flex gap-2 items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                <PlusCircle size={16} /> Add Blog
+                <Link to={"/blogUpload"}><PlusCircle size={16} /></Link>
+                <Link to={"/blogUpload"}>Add Blog</Link>
               </button>
             </div>
             <ul className="divide-y divide-gray-700">
@@ -233,7 +234,8 @@ const AdminDashboard = () => {
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-100">Projects</h3>
               <button className="flex gap-2 items-center text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                <PlusCircle size={16} /> Add Project
+                <Link to={"/projectUpload"}><PlusCircle size={16} /></Link>
+                <Link to={"/projectUpload"}> Add Project</Link>
               </button>
             </div>
             <ul className="divide-y divide-gray-700">
