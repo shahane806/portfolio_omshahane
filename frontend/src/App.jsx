@@ -131,11 +131,11 @@ function App() {
             element={<ForgetPasswordAdmin />}
           />
           <Route
-            path="/blogPost"
+            path="/blogUpload"
             element={<UploadForm application={"Blog Post"} />}
           />
           <Route
-            path="/projectPost"
+            path="/projectUpload"
             element={<UploadForm application={"Project"} />}
           />
           <Route path="*" element={<NotFound />} />
