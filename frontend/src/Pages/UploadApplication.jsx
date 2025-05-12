@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusCircle, Save, Image as ImageIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+const UploadForm = ({ application }) => {
+  const navigate = useNavigate();
+  const admin = useSelector((state) => state?.adminReducer);
+  const getAdminDetails = async () => {
+    return await admin;
+  }
+  useEffect(() => {
+    getAdminDetails().then((res) => {
+      if (res?.length == 0) {
+        navigate('/');
+      }
+    }).catch((e) => {
+      alert("Something Went Wrong")
+    });
+  }, [])
 
-const UploadForm = ({application}) => {
+
   const [blogData, setBlogData] = useState({
     title: "",
     content: "",
@@ -57,6 +74,7 @@ const UploadForm = ({application}) => {
   };
 
   return (
+
     <div className="min-h-screen bg-gray-900 text-gray-100 p-4 sm:p-6 font-sans">
       <div className="max-w-full sm:max-w-3xl lg:max-w-5xl mx-auto bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 hover:shadow-xl transition-shadow">
         <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-100 flex items-center gap-2">
@@ -64,13 +82,13 @@ const UploadForm = ({application}) => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-      
+
           <div>
             <label
               htmlFor="title"
               className="block text-sm sm:text-base font-medium text-gray-300"
             >
-            {application} Title
+              {application} Title
             </label>
             <input
               type="text"
@@ -79,7 +97,7 @@ const UploadForm = ({application}) => {
               value={blogData.title}
               onChange={handleInputChange}
               className="mt-1 w-full p-2 sm:p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 text-sm sm:text-base focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors"
-              placeholder={'Enter '+application+' title'}
+              placeholder={'Enter ' + application + ' title'}
               required
             />
           </div>
@@ -98,7 +116,7 @@ const UploadForm = ({application}) => {
                 value={blogData.content}
                 onChange={handleInputChange}
                 className="mt-1 w-full p-2 sm:p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 text-sm sm:text-base focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors h-[150px] sm:h-[250px] resize-none"
-                placeholder={"Write your "+application+" content in Markdown..."}
+                placeholder={"Write your " + application + " content in Markdown..."}
                 required
               />
               <p className="mt-2 text-xs sm:text-sm text-gray-400">
