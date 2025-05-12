@@ -131,16 +131,16 @@ function App() {
             element={<ForgetPasswordAdmin />}
           />
           <Route
-            path="/blogUpload"
+            path="/blogPost"
             element={<UploadForm application={"Blog Post"} />}
           />
           <Route
-            path="/projectUpload"
+            path="/projectPost"
             element={<UploadForm application={"Project"} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
+      
         <Footer
           info={{ UserName: myInfo.UserName, designation: myInfo.designation }}
         />
