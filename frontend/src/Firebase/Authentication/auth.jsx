@@ -27,8 +27,7 @@ export const SignInWithPopUp = async () => {
     if (isNewUser) {
       console.log("New User Registered Successfully");
       const user = 
-      { id: res.user.uid, username: res.user.displayName, mobile: res.user.phoneNumber, date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
-    
+      { id: res.user.uid, username: res.user.displayName, email: res.user.emailVerified, date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
       setUserDetails(user);
     } else {
       console.log("User Logged In Successfully");

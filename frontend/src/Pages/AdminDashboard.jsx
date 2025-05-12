@@ -25,7 +25,6 @@ import {
 import { signOutAction } from "../Store/action-creators";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchRegistrationData } from "../Firebase/Authentication/auth";
 import { getUsersList } from "../Firebase/RealtimeDatabase/functions";
 
 const blogData = [
@@ -80,13 +79,6 @@ const userActivity = [
   { name: "Jun", active: 700, inactive: 100 },
 ];
 
-// const registrationData =  [
-//   { id: 1, username: 'JohnDoe', method: 'Email', date: '2025-05-01', lastLogin: '2025-05-03' },
-//   { id: 2, username: 'JaneSmith', method: 'Google', date: '2025-04-20', lastLogin: '2025-05-02' },
-//   { id: 3, username: 'RobertBrown', method: 'Facebook', date: '2025-04-15', lastLogin: '2025-05-01' },
-//   { id: 4, username: 'EmilyDavis', method: 'Email', date: '2025-03-25', lastLogin: '2025-05-04' },
-// ];
-
 const menuItems = [
   { name: "Home", icon: Home, path: "/admin" },
   { name: "Blogs", icon: FileText, path: "/blog" },
@@ -103,7 +95,7 @@ const AdminDashboard = () => {
     {
       id: 1,
       username: "JohnDoe",
-      mobile: "",
+      email: "",
       date: "2025-05-01",
       lastLogin: "2025-05-03",
     },
@@ -116,7 +108,7 @@ const AdminDashboard = () => {
             {
               id: 1,
               username: "JohnDoe",
-              mobile: "",
+              email: "",
               date: "2025-05-01",
               lastLogin: "2025-05-03",
             },
@@ -130,7 +122,7 @@ const AdminDashboard = () => {
           {
             id: 1,
             username: "JohnDoe",
-            mobile: "",
+            email: "",
             date: "2025-05-01",
             lastLogin: "2025-05-03",
           },
@@ -369,7 +361,7 @@ const AdminDashboard = () => {
                     Username
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
-                    Registration Mobile
+                    Registration Email
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
                     Registration Date
@@ -386,7 +378,7 @@ const AdminDashboard = () => {
                       <td className="px-6 py-3 text-gray-300">
                         {v[1].username}
                       </td>
-                      <td className="px-6 py-3 text-gray-300">{v[1].mobile}</td>
+                      <td className="px-6 py-3 text-gray-300">{v[1].email}</td>
                       <td className="px-6 py-3 text-gray-300">{v[1].date}</td>
                       <td className="px-6 py-3 text-gray-300">
                         {v[1].lastLogin}
@@ -413,9 +405,9 @@ const AdminDashboard = () => {
                       </div>
                       <div>
                         <span className="text-sm font-medium text-gray-400">
-                          Mobile:{" "}
+                          Email:{" "}
                         </span>
-                        <span className="text-gray-300">{v[1].mobile}</span>
+                        <span className="text-gray-300">{v[1].email}</span>
                       </div>
                       <div>
                         <span className="text-sm font-medium text-gray-400">
