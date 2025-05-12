@@ -12,3 +12,11 @@
     }
   ]
 }
+
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ],
+  "outputDirectory": "dist"
+}
+
