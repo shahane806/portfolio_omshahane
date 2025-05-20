@@ -130,11 +130,11 @@ function App() {
           />
           <Route
             path="/blogUpload"
-            element={<UploadForm application={"Blog Post"} />}
+            element={<UploadForm application={"Blog Post"} submitFirst={true}/>}
           />
           <Route
             path="/projectUpload"
-            element={<UploadForm application={"Project"} />}
+            element={<UploadForm application={"Project"} submitFirst={false}/>}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
