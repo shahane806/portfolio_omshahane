@@ -44,7 +44,6 @@ function CursorLight() {
 function App() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show the button when the user scrolls down 300px
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
@@ -56,7 +55,6 @@ function App() {
     };
   }, []);
 
-  // Scroll to top when the button is clicked
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
