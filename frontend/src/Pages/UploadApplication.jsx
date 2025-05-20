@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusCircle, Save, Image as ImageIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-const UploadForm = ({ application }) => {
+import { setProjectData, setProjectMetaData, setBlogsData, setBlogMetaData } from "../Firebase/RealtimeDatabase/functions";
+const UploadForm = ({ application, submitFirst }) => {
   const navigate = useNavigate();
   const admin = useSelector((state) => state?.adminReducer);
   const getAdminDetails = async () => {
@@ -21,27 +22,28 @@ const UploadForm = ({ application }) => {
   }, [])
 
 
-  const [blogData, setBlogData] = useState({
+  const [blogData, setLocalBlogData] = useState({
     title: "",
     content: "",
     metaTitle: "",
     metaDescription: "",
-    metaKeywords: "",
+    metaKeywords: [],
     featuredImage: null,
+    githubLink : "",
+    demoLink :"",
   });
   const [imagePreview, setImagePreview] = useState(null);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setBlogData((prev) => ({ ...prev, [name]: value }));
+    name!='metaKeywords' && setLocalBlogData((prev) => ({ ...prev, [name]: value }));
+    name=='metaKeywords' && setLocalBlogData((prev)=>({...prev,[name]:value?.split(',')}));
   };
-
-  // Handle image upload
+  
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setBlogData((prev) => ({ ...prev, featuredImage: file }));
+      setLocalBlogData((prev) => ({ ...prev, featuredImage: file }));
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -50,25 +52,60 @@ const UploadForm = ({ application }) => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const submissionData = {
       ...blogData,
-      featuredImage: blogData.featuredImage
+      featuredImage: application == 'Project' ? blogData.featuredImage
+        ? "http://localhost:5000/UploadImg/Projects/"+`${blogData.featuredImage.name}`
+        : null : blogData.featuredImage
         ? blogData.featuredImage.name
         : null,
       date: new Date().toISOString().split("T")[0],
     };
     console.log("Uploaded Data:", submissionData);
-    // Reset form
-    setBlogData({
+
+    //use firebase function to insert the application data to the firebase.
+    if (submitFirst) {
+      setBlogsData({
+        title: submissionData.title,
+        content: submissionData.content,
+        freaturedImage: submissionData.featuredImage,
+        date: submissionData.date,
+      });
+      setBlogMetaData({
+        metaTitle: submissionData.metaTitle,
+        metaDescription: submissionData.metaDescription,
+        metaFeaturedImage: submissionData.featuredImage,
+        metaKeywords: submissionData.metaKeywords,
+        metaDate: submissionData.date
+      });
+    } else {
+      setProjectData({
+        title: submissionData.title,
+        content: submissionData.content,
+        freaturedImage: submissionData.featuredImage,
+        date: submissionData.date,
+      });
+      setProjectMetaData({
+        metaTitle: submissionData.metaTitle,
+        metaDescription: submissionData.metaDescription,
+        metaFeaturedImage: submissionData.featuredImage,
+        metaKeywords: submissionData.metaKeywords,
+        metaDate: submissionData.date,
+        metaDemoLink : submissionData.demoLink,
+        metaGitHubLink : submissionData.githubLink,
+      });
+    }
+    setLocalBlogData({
       title: "",
       content: "",
       metaTitle: "",
       metaDescription: "",
-      metaKeywords: "",
+      metaKeywords: [],
       featuredImage: null,
+      githubLink : "",
+      demoLink :  ""
     });
     setImagePreview(null);
   };
@@ -136,7 +173,6 @@ const UploadForm = ({ application }) => {
             </div>
           </div>
 
-          {/* Featured Image */}
           <div className="mt-3 mb-3">
             <label
               htmlFor="featuredImage"
@@ -166,7 +202,6 @@ const UploadForm = ({ application }) => {
             </div>
           </div>
 
-          {/* Meta Data */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <label
@@ -203,7 +238,44 @@ const UploadForm = ({ application }) => {
               />
             </div>
           </div>
-
+          {
+            !submitFirst && <div>
+              <label
+                htmlFor="githubLink"
+                className="block text-sm sm:text-base font-medium text-gray-300"
+              >
+                Meta GitHubLink
+              </label>
+              <input
+                type="text"
+                id="githubLink"
+                name="githubLink"
+                value={blogData.githubLink}
+                onChange={handleInputChange}
+                className="mt-1 w-full p-2 sm:p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 text-sm sm:text-base focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors"
+                placeholder="Enter GitHubLink"
+              />
+            </div>
+          }
+          {
+            !submitFirst && <div>
+              <label
+                htmlFor="demoLink"
+                className="block text-sm sm:text-base font-medium text-gray-300"
+              >
+                Meta Demo
+              </label>
+              <input
+                type="text"
+                id="demoLink"
+                name="demoLink"
+                value={blogData.demoLink}
+                onChange={handleInputChange}
+                className="mt-1 w-full p-2 sm:p-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 text-sm sm:text-base focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-colors"
+                placeholder="Enter Demo Link"
+              />
+            </div>
+          }
           <div>
             <label
               htmlFor="metaDescription"
@@ -222,10 +294,10 @@ const UploadForm = ({ application }) => {
             />
           </div>
 
-          {/* Submit Button */}
           <div className="flex justify-end">
             <button
               type="submit"
+              onClick={handleSubmit}
               className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
             >
               <Save size={16} className="sm:w-5 sm:h-5" />

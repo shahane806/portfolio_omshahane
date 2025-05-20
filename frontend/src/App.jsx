@@ -44,7 +44,6 @@ function CursorLight() {
 function App() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show the button when the user scrolls down 300px
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
@@ -56,7 +55,6 @@ function App() {
     };
   }, []);
 
-  // Scroll to top when the button is clicked
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -132,11 +130,11 @@ function App() {
           />
           <Route
             path="/blogUpload"
-            element={<UploadForm application={"Blog Post"} />}
+            element={<UploadForm application={"Blog Post"} submitFirst={true}/>}
           />
           <Route
             path="/projectUpload"
-            element={<UploadForm application={"Project"} />}
+            element={<UploadForm application={"Project"} submitFirst={false}/>}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
