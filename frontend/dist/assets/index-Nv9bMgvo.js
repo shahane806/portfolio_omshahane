@@ -1653,7 +1653,7 @@ Please change the parent <Route path="${E}"> to <Route path="${E==="/"?"*":`${E}
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */wo(hie,die,"app");const oq={apiKey:"AIzaSyArWU-aspL12DyYcksvywERuF3QSOQH5gA",authDomain:"portfolio-omshahane.firebaseapp.com",projectId:"portfolio-omshahane",storageBucket:"portfolio-omshahane.firebasestorage.app",messagingSenderId:"860706928025",appId:"1:860706928025:web:1b79fa854b798399dd8f08",measurementId:"G-WDEQ542K91",databaseURL:"https://portfolio-omshahane-default-rtdb.firebaseio.com"};console.log(oq);const sq=SF(oq);var RD={};const ID="@firebase/database",MD="1.0.14";/**
+ */wo(hie,die,"app");const oq={apiKey:"AIzaSyArWU-aspL12DyYcksvywERuF3QSOQH5gA",authDomain:"portfolio-omshahane.firebaseapp.com",projectId:"portfolio-omshahane",storageBucket:"portfolio-omshahane.firebasestorage.app",messagingSenderId:"860706928025",appId:"1:860706928025:web:1b79fa854b798399dd8f08",measurementId:"G-WDEQ542K91",databaseURL:"https://portfolio-omshahane-default-rtdb.firebaseio.com"};const sq=SF(oq);var RD={};const ID="@firebase/database",MD="1.0.14";/**
  * @license
  * Copyright 2019 Google LLC
  *
