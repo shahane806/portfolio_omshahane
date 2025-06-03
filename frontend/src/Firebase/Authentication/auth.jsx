@@ -25,18 +25,18 @@ export const SignInWithPopUp = async () => {
     const isNewUser = getAdditionalUserInfo(res).isNewUser;
 
     if (isNewUser) {
-      console.log("New User Registered Successfully");
+      // console.log("New User Registered Successfully");
       const user = 
       { id: res.user.uid, username: res.user.displayName, email: res.user.emailVerified, date: res.user.metadata.creationTime, lastLogin: res.user.metadata.lastSignInTime };
       setUserDetails(user);
     } else {
-      console.log("User Logged In Successfully");
+      // console.log("User Logged In Successfully");
     }
 
-    console.log("User Data:", res);
+    // console.log("User Data:", res);
     return res;
   } catch (e) {
-    console.error("SignIn Error:", e);
+    // console.error("SignIn Error:", e);
     return null;
   }
 };
@@ -60,28 +60,28 @@ export const CreateUserWithEmailAndPassword = async (data) => {
       return res;
     }
   }).catch((e) => {
-    console.log("CreateUserWithEmailAndPassword" + e);
+    // console.log("CreateUserWithEmailAndPassword" + e);
     return null;
   })
 }
 export const SignOutFirebaseAccount = async () => {
   const res = await signOut(auth)
     .then(() => {
-      console.log("SignOut Successfully");
+      // console.log("SignOut Successfully");
       return true;
     })
     .catch((e) => {
-      console.log(e);
+      // console.log(e);
     });
   return res;
 };
 
 export const SendPasswordResetEmail = async(data) =>{
   await sendPasswordResetEmail(auth,data.email).then(()=>{
-    console.log("Password Reset Email Sent Successfully")
+    // console.log("Password Reset Email Sent Successfully")
     return true;
   }).catch((e)=>{
-    console.log("Error in sending Password Reset Email",e);
+    // console.log("Error in sending Password Reset Email",e);
     return null;
   })
   

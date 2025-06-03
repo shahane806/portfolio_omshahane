@@ -9,7 +9,7 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
+    // console.log('Email:', email, 'Password:', password);
    const res = await SignInWithEmailAndPassword({email,password});
     if(res == undefined){
       alert("❌ Invalid Credentials");

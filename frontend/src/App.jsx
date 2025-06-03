@@ -66,11 +66,11 @@ function App() {
     getHome();
     getMyInfo().then((res) => {
       if (res == undefined) {
-        console.log("IN App");
+        // console.log("IN App");
         setMyInfo([]);
       } else {
-        console.log("IN App");
-        console.log(res);
+        // console.log("IN App");
+        // console.log(res);
         setMyInfo(res);
       }
     });
@@ -80,8 +80,8 @@ function App() {
   const [adminDataLength, setAdminDataLength] = useState(0);
   useEffect(() => {
     admin.then((res) => {
-      console.log("Admin Data:", res?.length);
-      console.log("Admin Data:", res);
+      // console.log("Admin Data:", res?.length);
+      // console.log("Admin Data:", res);
       setAdminDataLength(res?.length);
     });
   }, [admin]);

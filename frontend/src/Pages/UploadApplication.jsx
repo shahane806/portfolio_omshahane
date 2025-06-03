@@ -63,7 +63,7 @@ const UploadForm = ({ application, submitFirst }) => {
         : null,
       date: new Date().toISOString().split("T")[0],
     };
-    console.log("Uploaded Data:", submissionData);
+    // console.log("Uploaded Data:", submissionData);
 
     //use firebase function to insert the application data to the firebase.
     if (submitFirst) {

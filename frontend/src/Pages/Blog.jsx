@@ -23,7 +23,7 @@ const Blog = () => {
   
   useEffect(()=>{
     getBlogMetaData().then((res)=>{
-      console.log(res)
+      // console.log(res)
       if(res == undefined){
         setPostsMetaData([]);
       }else{

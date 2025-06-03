@@ -11,19 +11,19 @@ const Home = () => {
   useEffect(() => {
     getMyInfo().then((res) => {
       if (res == undefined) {
-        console.log("MyInfo is Not Available");
+        // console.log("MyInfo is Not Available");
         setMyInfo([]);
       } else {
-        console.log("Fetching MyInfo from the database" + res);
+        // console.log("Fetching MyInfo from the database" + res);
         setMyInfo(res);
       }
     })
     getProfessionalExperienceData().then((res) => {
       if (res == undefined) {
-        console.log("ProfessionalExperience is not available");
+        // console.log("ProfessionalExperience is not available");
         setProfessionalExperience([]);
       } else {
-        console.log("Fetching Professional Experience Data from database");
+        // console.log("Fetching Professional Experience Data from database");
         setProfessionalExperience(res);
       }
     })

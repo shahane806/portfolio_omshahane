@@ -49,7 +49,7 @@ export default function Navbar({
   const dispatch = useDispatch();
   const handleSignIn = async () => {
     const res = await SignInWithPopUp();
-    console.log(res);
+    // console.log(res);
     await signInAction(dispatch, res);
   };
   const handleSignOut = async () => {
@@ -60,8 +60,8 @@ export default function Navbar({
   const [userDataLength, setUserDataLength] = useState(0);
   useEffect(() => {
     user.then((res) => {
-      console.log("User Data:", res?.length);
-      console.log("User Data:", res);
+      // console.log("User Data:", res?.length);
+      // console.log("User Data:", res);
       setUserDataLength(res?.length);
     });
   }, [user]);

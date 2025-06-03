@@ -4,10 +4,10 @@ const APIs = axios.create({ baseUrl : baseUrl });
 export const getHome = async () => {
     try {
         const response = await APIs.get(baseUrl+"/");
-        console.log('Home Data:', response.data);
+        // console.log('Home Data:', response.data);
         return response.data;
     } catch (error) {
-        console.error('Error fetching home:', error);
+        // console.error('Error fetching home:', error);
         return null;
     }
 }
