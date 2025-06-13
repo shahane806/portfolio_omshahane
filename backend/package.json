@@ -9,7 +9,7 @@
   "dev": "nodemon index.js",
   "build": "esbuild index.js --bundle --platform=node --outfile=dist/index.js"
 }
-
+,
   "author": "om shahane",
   "license": "ISC",
   "dependencies": {
