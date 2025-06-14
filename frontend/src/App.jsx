@@ -93,7 +93,7 @@ function App() {
         <Navbar
           logo={{ src: "/logo.png", alt: "Site Logo", text: "DevOps" }}
           navItems={[
-            { label: "Home2", href: "/" },
+            { label: "Home", href: "/" },
             { label: "Blog", href: "/blog" },
             { label: "Projects", href: "/projects" },
             { label: "About Us", href: "/about" },
